@@ -38,8 +38,8 @@ Result: hi1122334455667788991010
 
 ## Launch double process application
 
-Initiator and Replier communicate over socket connection.
-Initiator starts sending messages when replier connects.
+Initiator and Replier communicate over socket connection.  
+Initiator starts sending messages when replier connects.  
 Initiator and Replier must be started separately.
 
 ### Launch Initiator process
