@@ -1,20 +1,30 @@
 package fx360t.channel;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
+import java.util.function.Supplier;
 
 /**
- * A channel for sending and receiving messages over a socket connection.
+ * An implementation of the {@code MessageChannel} interface for sending and receiving messages over a socket connection.
  */
 public class SocketMessageChannel implements MessageChannel, AutoCloseable {
 
     private final PrintWriter out;
     private final BufferedReader in;
+    private final Socket socket;
 
-    public SocketMessageChannel(Socket socket) throws IOException {
+    public static SocketMessageChannel createChannel(Supplier<Socket> socketSupplier, int timeoutMs) {
+        try {
+            Socket socket = socketSupplier.get();
+            return new SocketMessageChannel(socket, timeoutMs);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private SocketMessageChannel(Socket socket, int timeoutMs) throws IOException {
+        this.socket = socket;
+        socket.setSoTimeout(timeoutMs);
         this.out = new PrintWriter(socket.getOutputStream(), true);
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     }
@@ -36,19 +46,14 @@ public class SocketMessageChannel implements MessageChannel, AutoCloseable {
 
     @Override
     public void close() throws IOException {
-        closeWriter();
-        closeReader();
+        closeResources(out, in, socket);
     }
 
-    private void closeWriter() {
-        if (out != null) {
-            out.close();
-        }
-    }
-
-    private void closeReader() throws IOException {
-        if (in != null) {
-            in.close();
+    private void closeResources(Closeable... resources) throws IOException {
+        for (Closeable resource : resources) {
+            if (resource != null) {
+                resource.close();
+            }
         }
     }
 }

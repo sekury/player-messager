@@ -1,10 +1,9 @@
-package fx360t.tasks;
+package fx360t.task;
 
 import fx360t.channel.MessageChannel;
 
 /**
- * ReplierTask maintains an ongoing response to messages received from a MessageChannel.
- * It retrieves the last received message from the message channel and sends a reply to each incoming message.
+ * Replies to messages received from a MessageChannel.
  */
 public class ReplierPlayer extends ChannelTask {
 
@@ -13,25 +12,23 @@ public class ReplierPlayer extends ChannelTask {
     }
 
     /**
-     * Retrieves the last received message from the message channel.
-     * <p>
-     * This method maintains an ongoing response to messages until it encounters one of the following conditions:
+     * Replies to messages until it encounters one of the following conditions:
      * either the current thread has been interrupted, the incoming message is null, or a message dispatch has failed.
      *
      * @return The last received message, or null if no message was received.
      */
     @Override
-    protected String connect() {
+    protected String start() {
         var messagesSent = 1;
         String incomingMessage, lastMessageReceived = null;
         while (isThreadRunning()) {
             incomingMessage = receiveIncomingMessage();
             if (incomingMessage == null) {
-                break;  // failed to receive message
+                break;  // failed to receive a message or the player is disconnected
             }
             lastMessageReceived = incomingMessage;
-            if (!sendMessage(incomingMessage, messagesSent)) {
-                break;  // failed to send message
+            if (!sendMessageWithCounter(incomingMessage, messagesSent)) {
+                break;  // failed to send a message or the player is disconnected
             }
             messagesSent++;
         }
@@ -40,9 +37,5 @@ public class ReplierPlayer extends ChannelTask {
 
     private boolean isThreadRunning() {
         return !Thread.currentThread().isInterrupted();
-    }
-
-    private boolean sendMessage(String message, long counter) {
-        return sendMessage(message + counter);
     }
 }

@@ -1,4 +1,4 @@
-package fx360t.tasks;
+package fx360t.task;
 
 import fx360t.channel.MessageChannel;
 
@@ -27,16 +27,16 @@ public abstract class ChannelTask implements Supplier<String> {
 
     @Override
     public String get() {
-        return connect();
+        return start();
     }
 
-    protected abstract String connect();
+    protected abstract String start();
 
-    protected boolean sendMessage(String message) {
+    protected boolean sendMessageWithCounter(String message, long messagesSent) {
         try {
-            return channel.sendMessage(message);
+            return channel.sendMessage(message + messagesSent);
         } catch (InterruptedException e) {
-            handleInterruptedException(e);
+            handleInterruptedException();
             return false;
         }
     }
@@ -47,13 +47,12 @@ public abstract class ChannelTask implements Supplier<String> {
             log.log(Level.INFO, String.format(RECEIVE_MESSAGE_TEMPLATE, name, message));
             return message;
         } catch (InterruptedException e) {
-            handleInterruptedException(e);
+            handleInterruptedException();
             return null;
         }
     }
 
-    private void handleInterruptedException(InterruptedException e) {
-        log.log(Level.INFO, "Thread interrupted", e);
+    private void handleInterruptedException() {
         Thread.currentThread().interrupt();
     }
 }

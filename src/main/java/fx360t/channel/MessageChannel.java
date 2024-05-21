@@ -1,7 +1,7 @@
 package fx360t.channel;
 
 /**
- * A channel for sending and receiving messages.
+ * A channel interface for sending and receiving messages.
  */
 public interface MessageChannel {
     boolean sendMessage(String message) throws InterruptedException;

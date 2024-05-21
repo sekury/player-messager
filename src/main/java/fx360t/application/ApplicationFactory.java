@@ -4,6 +4,9 @@ import fx360t.application.concurrent.TwoThreadApplication;
 import fx360t.application.socket.SocketClientApplication;
 import fx360t.application.socket.SocketServerApplication;
 
+/**
+ * A factory class for creating applications based on the given parameters.
+ */
 public class ApplicationFactory {
 
     public Application createPlayerApp(ApplicationParameters parameters) {

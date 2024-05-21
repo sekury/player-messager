@@ -5,7 +5,7 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
- * An implementation of the MessageChannel interface that uses a BlockingQueue
+ * An implementation of the {@code MessageChannel} interface that uses a {@code BlockingQueue}
  * to send and receive messages between threads.
  */
 public class BlockingQueueMessageChannel implements MessageChannel {

@@ -6,9 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Application type.
- * Each application type has a corresponding string representation,
- * which can be used to retrieve the corresponding ApplicationType object.
+ * Enum representing different types of applications.
  */
 public enum ApplicationType {
     SOCKET_INIT("soinit"),

@@ -1,14 +1,9 @@
-package fx360t.tasks;
+package fx360t.task;
 
 import fx360t.channel.MessageChannel;
 
 /**
- * A task that sends messages to a player and retrieves the last received message.
- * <p>
- * Continuously sends messages until the maximum message count is reached or the current thread is interrupted.
- * <p>
- * If a null message is received or the thread is interrupted, the loop breaks and the last received message is
- * returned as the result.
+ * A task that sends messages to a player and returns the last received message.
  */
 public class InitiatorPlayer extends ChannelTask {
 
@@ -28,17 +23,17 @@ public class InitiatorPlayer extends ChannelTask {
      * interrupted
      */
     @Override
-    protected String connect() {
+    protected String start() {
         String currentMessage = initialMessage;
         String lastMessageReceived = null;
         long messagesSent = 1;
 
         while (isThreadRunning()
                 && messagesSent <= MAX_MESSAGE_COUNT
-                && sendMessage(currentMessage, messagesSent)) {
+                && sendMessageWithCounter(currentMessage, messagesSent)) {  // failed to send a message or the player is disconnected
             currentMessage = receiveIncomingMessage();
             if (currentMessage == null) {
-                break;
+                break;  // failed to receive a message or the player is disconnected
             }
             lastMessageReceived = currentMessage;
             messagesSent++;
@@ -48,9 +43,5 @@ public class InitiatorPlayer extends ChannelTask {
 
     private boolean isThreadRunning() {
         return !Thread.currentThread().isInterrupted();
-    }
-
-    private boolean sendMessage(String message, long counter) {
-        return sendMessage(message + counter);
     }
 }
