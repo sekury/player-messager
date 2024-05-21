@@ -10,14 +10,12 @@ Initiator and Replier communicate over `BlockingQueue`.
 
 Run command
 ```
-./mvnw compile
-./mvnw exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="threads hi"
+mvn compile
+mvn exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="threads hi"
 ```
-or execute script
-```
-./run_threads.sh hi
-```
-Executable script accepts single argument: initial message.
+Arguments: 
+- single process application type (e.g. threads)
+- initial message (e.g. hi)
 
 Example:
 
@@ -47,22 +45,19 @@ Initiator and Replier must be started separately.
 
 Run command
 ```
-./mvnw exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="soinit hi 8000"
+mvn exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="soinit hi 8000"
 ```
-or execute script
-```
-./run_initiator.sh hi 8000
-```
-Executable script accepts two arguments: initial message and port number.
+Arguments:
+- socket initiator application type (e.g. soinit)
+- initial message (e.g. hi)
+- initiator port number (e.g. 8000)
 
 ### Launch Replier process
 
 Run command
 ```
-./mvnw exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="soreply 8000"
+mvn exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="soreply 8000"
 ```
-or execute script
-```
-./run_replier.sh 8000
-```
-Executable script accepts single argument: initiator port number.
+Arguments:
+- socket replier application type (e.g. soreply)
+- initiator port number (e.g. 8000)
