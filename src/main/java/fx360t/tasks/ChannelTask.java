@@ -28,7 +28,7 @@ public abstract class ChannelTask implements Supplier<String> {
     @Override
     public String get() {
         return connect();
-    };
+    }
 
     protected abstract String connect();
 
