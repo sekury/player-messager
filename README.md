@@ -10,7 +10,8 @@ Initiator and Replier communicate over `BlockingQueue`.
 
 Run command
 ```
-mvn exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="threads hi"
+./mvnw compile
+./mvnw exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="threads hi"
 ```
 or execute script
 ```
@@ -46,7 +47,7 @@ Initiator and Replier must be started separately.
 
 Run command
 ```
-mvn exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="soinit hi 8000"
+./mvnw exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="soinit hi 8000"
 ```
 or execute script
 ```
@@ -58,7 +59,7 @@ Executable script accepts two arguments: initial message and port number.
 
 Run command
 ```
-mvn exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="soreply 8000"
+./mvnw exec:java -Dexec.mainClass="fx360t.Main" -Dexec.args="soreply 8000"
 ```
 or execute script
 ```
