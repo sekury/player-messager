@@ -5,7 +5,7 @@ import fx360t.channel.MessageChannel;
 /**
  * A task that sends messages to a player and returns the last received message.
  */
-public class InitiatorPlayer extends ChannelTask {
+public final class InitiatorPlayer extends ChannelTask {
 
     private static final int MAX_MESSAGE_COUNT = 10;
 

@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 /**
  * An abstract class that represents a task to be performed on the channel.
  */
-public abstract class ChannelTask implements Supplier<String> {
+public abstract sealed class ChannelTask implements Supplier<String> permits InitiatorPlayer, ReplierPlayer {
 
     private static final String RECEIVE_MESSAGE_TEMPLATE = "%s: %s";
 

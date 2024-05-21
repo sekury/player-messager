@@ -5,7 +5,7 @@ import fx360t.channel.MessageChannel;
 /**
  * Replies to messages received from a MessageChannel.
  */
-public class ReplierPlayer extends ChannelTask {
+public final class ReplierPlayer extends ChannelTask {
 
     public ReplierPlayer(String name, MessageChannel channel) {
         super(name, channel);
